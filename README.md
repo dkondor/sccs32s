@@ -22,11 +22,11 @@ TX2, all four addresses are grouped together as belonging to the same "entity"
 that is assumed to control all of them to be able to create transactions with them.
 
 Computationally, this corresponds to finding the connected components of an
-auxilliary graph constructed as having an edge between addresses that appear as
+auxiliary graph constructed as having an edge between addresses that appear as
 inputs of the same transaction.
 
 
-1. Create this auxilliary graph from transaction inputs
+1. Create this auxiliary graph from transaction inputs
 ```
 xzcat txin.dat.xz | awk 'BEGIN{txl=0;addrl=0;addrl2=0;}{if($1 == txl) { if(addrl != $5) print addrl,$5; if(addrl2 != $5) print addrl2,$5; } else  { txl = $1; addrl = $5;} addrl2 = $5;}' | uniq > addr_edges.dat
 ```
@@ -69,5 +69,16 @@ compare the two results -- no output means OK
 ```
 ./sccscomp -1 addr_sccs.dat -2 addr_sccs5.dat
 ```
+
+
+# Compilation
+
+
+Should be very simple, but requires C++14. E.g. with gcc:
+```
+g++ -o sccs32s sccs32s.cpp -std=gnu++14 -O3 -march=native
+g++ -o sccscomp sccs_compare.cpp -std=gnu++14 -O3 -march=native
+```
+
 
 

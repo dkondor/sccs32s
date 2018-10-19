@@ -93,7 +93,7 @@ uint64_t read_graph(uint32_t* i1, uint32_t* i2, FILE* f, uint64_t N) {
 	read_table2 r(f);
 	uint64_t i = 0;
 	while(r.read_line()) {
-		if(!r.read(i1+i,i2+i)) {
+		if(!r.read(i1[i],i2[i])) {
 			if(r.get_last_error() == T_OVERFLOW) continue; // ignore overflow / negative values
 			break;
 		}
